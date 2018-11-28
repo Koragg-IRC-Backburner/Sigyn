@@ -1,4 +1,6 @@
 ###
+#           
+# Copyright (c) 2018, KoraggKnightWolf
 # Copyright (c) 2016, Nicolas Coevoet
 # All rights reserved.
 #
@@ -38,7 +40,7 @@ import supybot.world as world
 
 # Use this for the version of this plugin.  You may wish to put a CVS keyword
 # in here if you're keeping the plugin in CVS or some similar system.
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 # XXX Replace this with an appropriate author or supybot.Author instance.
 __author__ = supybot.authors.unknown
