@@ -882,7 +882,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                           channels.append(channel)
                           if not isCloaked('%s!%s' % (nick,ip),self):
                               if self.registryValue('useOperServ'):
-                                  irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL DEL %s' % ip))
+                                  irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL DEL *@%s' % ip))
                               else:
                                   irc.queueMsg(ircmsgs.IrcMsg('ZLINE %s' % ip))
                               if self.registryValue('clearTmpPatternOnUnkline',channel=channel):
@@ -1343,7 +1343,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
             ## q.queue._P__slots__ probably
             self.log.info('KLINE %s|%s' % (mask,pending[3]))
             if self.registryValue('useOperServ'):
-                irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD %s !T %s %s | %s' % (mask,pending[2],pending[4],pending[3])))
+                irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD +0 *@%s  %s' % (mask,pending[2],pending[4],pending[3])))
             else:
                 irc.sendMsg(ircmsgs.IrcMsg('ZLINE %s 0 :%s' % (pending[2],mask,pending[4],pending[3])))
             for channel in irc.state.channels:
@@ -1383,7 +1383,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
             else:
                 self.log.info('KLINE %s|%s' % (mask,reason))
                 if self.registryValue('useOperServ'):
-                    irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD %s !T %s %s | %s' % (mask,duration,klineMessage,reason)))
+                    irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD +0 *@%s %s' % (mask,duration,klineMessage,reason)))
                 else:
                     irc.sendMsg(ircmsgs.IrcMsg('ZLINE %s 0 :%s' % (mask,klineMessage)))
                 if i.defcon:
@@ -2760,7 +2760,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                             q.reset()
                             uid = random.randint(0,1000000)
                             if self.registryValue('useOperServ'):
-                                irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD %s !T %s %s' % (range,self.registryValue('klineDuration'),'%s - repeat abuses on this range (%s/%ss)' % (uid,permit,self.registryValue('ipv4AbuseLife')))))
+                                irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD +%s *@%s %s' % (range,self.registryValue('klineDuration'),'%s - repeat abuses on this range (%s/%ss)' % (uid,permit,self.registryValue('ipv4AbuseLife')))))
                             else:
                                 irc.sendMsg(ircmsgs.IrcMsg('ZLINE %s 0 :%s' % (range,self.registryValue('klineMessage'),'%s - repeat abuses on this range (%s/%ss)' % (uid,permit,self.registryValue('ipv4AbuseLife')))))
                             self.logChannel(irc,"BAD: abuses detected on %s (%s/%ss - %s) %s" % (range,permit,self.registryValue('ipv4AbuseLife'),uid,','.join(hs)))
