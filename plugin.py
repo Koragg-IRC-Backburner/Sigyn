@@ -533,16 +533,15 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
             else:
                 i.defcon = time.time()
                 self.logChannel(irc,"INFO: ignores lifted and abuses end to klines for %ss by %s" % (self.registryValue('defcon'),msg.nick))
-                if not i.god:
-                    irc.sendMsg(ircmsgs.IrcMsg('MODE %s +p' % irc.nick))
-                else:
+               
+                if:
                     for channel in irc.state.channels:
                         if irc.isChannel(channel) and self.registryValue('defconMode',channel=channel):
-                            if not 'z' in irc.state.channels[channel].modes:
+                            if not 'U' in irc.state.channels[channel].modes:
                                 if irc.nick in list(irc.state.channels[channel].ops):
-                                    irc.sendMsg(ircmsgs.IrcMsg('MODE %s +qz $~a' % channel))
+                                    irc.sendMsg(ircmsgs.IrcMsg('MODE %s +b u:U:*!*@*' % channel))
                                 else:
-                                    irc.sendMsg(ircmsgs.IrcMsg('MODE %s +oqz %s $~a' % (channel,irc.nick)))
+                                    irc.sendMsg(ircmsgs.IrcMsg('SAMODE %s +ob u:U:*!*@*' % (channel,irc.nick)))
         irc.replySuccess()
     defcon = wrap(defcon,['owner',optional('channel')])
 
