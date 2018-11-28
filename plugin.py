@@ -1344,7 +1344,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
             if self.registryValue('useOperServ'):
                 irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD %s !T %s %s | %s' % (mask,pending[2],pending[4],pending[3])))
             else:
-                irc.sendMsg(ircmsgs.IrcMsg('KLINE %s %s :%s|%s' % (pending[2],mask,pending[4],pending[3])))
+                irc.sendMsg(ircmsgs.IrcMsg('ZLINE %s 0 :%s' % (pending[2],mask,pending[4],pending[3])))
             for channel in irc.state.channels:
                 chan = self.getChan(irc,channel)
                 if len(chan.klines):
@@ -1384,7 +1384,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                 if self.registryValue('useOperServ'):
                     irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD %s !T %s %s | %s' % (mask,duration,klineMessage,reason)))
                 else:
-                    irc.sendMsg(ircmsgs.IrcMsg('KLINE %s %s :%s|%s' % (duration,mask,klineMessage,reason)))
+                    irc.sendMsg(ircmsgs.IrcMsg('ZLINE %s 0 :%s' % (mask,klineMessage)))
                 if i.defcon:
                     i.defcon = time.time()
         elif ircutils.isUserHostmask(prefix):
@@ -2761,7 +2761,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                             if self.registryValue('useOperServ'):
                                 irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL ADD %s !T %s %s' % (range,self.registryValue('klineDuration'),'%s - repeat abuses on this range (%s/%ss)' % (uid,permit,self.registryValue('ipv4AbuseLife')))))
                             else:
-                                irc.sendMsg(ircmsgs.IrcMsg('KLINE %s *@%s :%s|%s' % (self.registryValue('klineDuration'),range,self.registryValue('klineMessage'),'%s - repeat abuses on this range (%s/%ss)' % (uid,permit,self.registryValue('ipv4AbuseLife')))))
+                                irc.sendMsg(ircmsgs.IrcMsg('ZLINE %s 0 :%s' % (range,self.registryValue('klineMessage'),'%s - repeat abuses on this range (%s/%ss)' % (uid,permit,self.registryValue('ipv4AbuseLife')))))
                             self.logChannel(irc,"BAD: abuses detected on %s (%s/%ss - %s) %s" % (range,permit,self.registryValue('ipv4AbuseLife'),uid,','.join(hs)))
                         permit = permit + 1
                 if '!dnsbl' in text or hasPattern:
