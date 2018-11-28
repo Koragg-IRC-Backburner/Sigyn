@@ -806,7 +806,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                           channels.append(channel)
                           if not isCloaked('%s!%s' % (nick,ip),self):
                               if self.registryValue('useOperServ'):
-                                  irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL DEL %s' % ip))
+                                  irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL DEL *@%s' % ip))
                               else:
                                   irc.queueMsg(ircmsgs.IrcMsg('ZLINE %s' % ip))
                               if self.registryValue('clearTmpPatternOnUnkline',channel=channel):
