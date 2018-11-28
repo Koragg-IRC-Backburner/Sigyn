@@ -78,7 +78,7 @@ def isCloaked (prefix,sig):
         return False
     (nick,ident,host) = ircutils.splitHostmask(prefix)
     if '/' in host:
-        if host.startswith('gateway/') or host.startswith('nat/'):
+        if host.startswith('gateway/') or host.endswith('.IP'):
             return False
         return True
     return False
