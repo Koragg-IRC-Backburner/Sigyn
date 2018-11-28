@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 ###
+# Copyright (c) 2018, KoraggKnightWolf
 # Copyright (c) 2016, Nicolas Coevoet
 # All rights reserved.
 #
