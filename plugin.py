@@ -883,7 +883,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                               if self.registryValue('useOperServ'):
                                   irc.sendMsg(ircmsgs.IrcMsg('PRIVMSG OperServ :AKILL DEL %s' % ip))
                               else:
-                                  irc.queueMsg(ircmsgs.IrcMsg('UNKLINE %s' % ip))
+                                  irc.queueMsg(ircmsgs.IrcMsg('ZLINE %s' % ip))
                               if self.registryValue('clearTmpPatternOnUnkline',channel=channel):
                                   if chan.patterns and len(chan.patterns):
                                       self.logChannel(irc,'PATTERN: [%s] removed %s tmp pattern by %s' % (channel,len(chan.patterns),msg.nick))
