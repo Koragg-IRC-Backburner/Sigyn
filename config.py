@@ -107,6 +107,11 @@ conf.registerGlobalValue(Sigyn, 'lagPermit',
 conf.registerGlobalValue(Sigyn, 'lagInterval',
      registry.PositiveInteger(1, """interval between two check about lag, also used to garbage collect useless items in internal state"""))
 
+conf.registerGlobalValue(Sigyn, 'serverFilteringPermit',
+     registry.Integer(-1, """-1 to disable, enable dnsbling and klining when server trigger filtering messages"""))
+conf.registerGlobalValue(Sigyn, 'serverFilteringLife',
+     registry.PositiveInteger(1, """life of message in buffer in seconds"""))
+
 conf.registerGlobalValue(Sigyn, 'ghostPermit',
      registry.Integer(-1, """max number of ghost connections allowed"""))
 
@@ -180,7 +185,7 @@ conf.registerGlobalValue(Sigyn, 'defcon',
     registry.PositiveInteger(1,"""duration of defcon mode in seconds, where bot is more agressive, with lowered abuse triggers and no ignores"""))
 
 # amsg
-conf.registerGlobalValue(Sigyn, 'amsgMinium',
+conf.registerGlobalValue(Sigyn, 'amsgMinimum',
     registry.PositiveInteger(1,"""length of text necessary to start amsg check"""))
 conf.registerGlobalValue(Sigyn, 'amsgPermit',
     registry.Integer(-1,"""number of channels allowed with same message"""))
@@ -242,6 +247,8 @@ conf.registerChannelValue(Sigyn, 'badunicodePermit',
     registry.Integer(-1,"""number bad unicode message allowed"""))
 conf.registerChannelValue(Sigyn, 'badunicodeLife',
     registry.PositiveInteger(1,"""life of bad unicode message"""))
+conf.registerChannelValue(Sigyn, 'badunicodeScore',
+    registry.PositiveInteger(1,"""score of message to trigger limit"""))
 
 # Quit flood
 conf.registerChannelValue(Sigyn, 'brokenPermit',
